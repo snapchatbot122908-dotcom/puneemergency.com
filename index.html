@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pune Emergency Help</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header>
+  <h1>Pune Emergency Help</h1>
+  <p>Quick Contacts & Helplines</p>
+  <form method="get">
+    <input class="search-bar" type="text" name="search" placeholder="Search..." value="{{ search }}">
+  </form>
+</header>
+
+<nav>
+  {% for cat in categories %}
+    <a class="tab {% if cat==active_cat %}active{% endif %}" href="/?category={{ cat }}&search={{ search }}">{{ cat }}</a>
+  {% endfor %}
+</nav>
+
+<div class="container">
+  {% if contacts %}
+    {% for c in contacts %}
+      <div class="card">
+        <h3>{{ c.name }}</h3>
+        <p>{{ c.address }}</p>
+        <a class="btn" href="tel:{{ c.phone }}">📞 Call</a>
+        {% if c.maps %}
+          <a class="btn" href="{{ c.maps }}" target="_blank">📍 Map</a>
+        {% endif %}
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>No results found.</p>
+  {% endif %}
+</div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header>
+  <h1>Admin Panel</h1>
+  <a class="btn" href="{{ url_for('logout') }}">Logout</a>
+</header>
+
+<div class="container">
+  <h2>All Contacts</h2>
+  {% for c in contacts %}
+    <div class="card">
+      <h3>{{ c.name }} ({{ c.category }})</h3>
+      <p>{{ c.address }}</p>
+      <a class="btn" href="tel:{{ c.phone }}">📞 Call</a>
+      {% if c.maps %}
+        <a class="btn" href="{{ c.maps }}" target="_blank">📍 Map</a>
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>
+</body>
+</html>
